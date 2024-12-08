@@ -1,0 +1,95 @@
+.header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+  }
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-icon {
+    font-size: 20px;
+    margin-right: 8px;
+  }
+  
+  .nav a {
+    margin-right: 30px;
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .add-recipe {
+    padding: 8px 16px;
+    border: 1px solid #2c3e50;
+    border-radius: 20px;
+    background: transparent;
+    color: #2c3e50;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .add-recipe:hover {
+    background: #2c3e50;
+    color: #fff;
+  }
+  
+  .login {
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: #2c3e50;
+    color: white;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .login:hover {
+    background: #1a242f;
+  }
+  
+  .sub-nav {
+    display: flex;
+    justify-content: center;
+    background-color: #ffffff;
+    padding: 10px 0;
+    border-top: 1px solid #e6e6e6;
+  }
+  
+  .sub-nav a {
+    margin: 0 20px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    transition: color 0.3s ease;
+  }
+  
+  .sub-nav a:hover {
+    color: #2c3e50;
+  }
+  
