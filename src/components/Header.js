@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/Header.css";
-import { CookingPot } from "lucide-react"; // Using Lucide for a cooking-related icon
+import { CookingPot } from "lucide-react"; 
 
 const Header = () => {
   return (
