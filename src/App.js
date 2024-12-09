@@ -6,6 +6,7 @@ import HealthyEatingInspiration from "./components/HealthyEatingInspiration";
 import LiquidHarmony from "./components/LiquidHarmony";
 import RecipeOfTheWeek from "./components/RecipeOfTheWeek";
 import SetYourPreferences from "./components/SetYourPreferences";
+import Showcase from "./components/Showcase";
 import './App.css';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <LiquidHarmony />
       <RecipeOfTheWeek />
       <SetYourPreferences />
+      <Showcase />
     </div>
   );
 }
