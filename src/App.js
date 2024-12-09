@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import Header from "./components/Header";
 import HomeSearchBar from "./components/HomeSearchBar";
+import EffortlessEats from "./components/EffortlessEats";
 import './App.css';
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <div className="App">
       <Header />
       <HomeSearchBar />
+      <EffortlessEats />
     </div>
   );
 }
