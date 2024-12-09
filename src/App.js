@@ -22,7 +22,7 @@ import img12 from "./assets/images/img12.png";
 import img13 from "./assets/images/img13.png";
 import img14 from "./assets/images/img14.png";
 import img15 from "./assets/images/img15.png";
-
+//recipies
 const recipes = [
   {
     title: "Chicken Makhani (Indian Butter Chicken)",
@@ -121,7 +121,7 @@ const recipes = [
     image: img12,
   },
   {
-    title: "Crispy Fried Chicken",
+    title: "Creamy Chicken and Rice",
     author: "EPHESIS",
     time: "50 mins",
     rating: 4.4,
@@ -129,7 +129,7 @@ const recipes = [
     image: img13,
   },
   {
-    title: "Creamy Chicken and Rice",
+    title: "Crispy Fried Chicken",
     author: "EPHESIS",
     time: "90 mins",
     rating: 4.8,
