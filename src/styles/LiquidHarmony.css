@@ -1,10 +1,10 @@
-.effortless-eats {
+.liquid-harmony {
     padding: 40px 20px;
-    background-color: #f7f7f7; 
+    background-color: #f7f7f7;
     font-family: "Arial", sans-serif;
   }
   
-  .effortless-header {
+  .liquid-header {
     margin: 20px 0;
     text-align: left;
   }
@@ -38,17 +38,17 @@
     margin-top: 10px;
     font-size: 1rem;
     color: #555;
-    max-width: 800px; 
+    max-width: 800px;
   }
   
   .cards-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 20px;
     margin-top: 20px;
   }
   
-  .recipe-card {
+  .drink-card {
     background: #fff;
     border: 1px solid #eaeaea;
     border-radius: 8px;
@@ -57,12 +57,12 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
-  .recipe-card:hover {
+  .drink-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
   
-  .recipe-image {
+  .drink-image {
     width: 100%;
     height: 200px;
     object-fit: cover;
@@ -72,26 +72,26 @@
     padding: 15px;
   }
   
-  .recipe-title {
+  .drink-title {
     font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 5px;
     color: #333;
   }
   
-  .recipe-author {
+  .drink-author {
     font-size: 0.9rem;
     margin: 0;
     color: #6c757d;
   }
   
-  .recipe-time {
+  .drink-time {
     font-size: 0.85rem;
     margin: 5px 0;
     color: #6c757d;
   }
   
-  .recipe-rating {
+  .drink-rating {
     font-size: 1rem;
     color: #ffb400;
     margin-top: 5px;
