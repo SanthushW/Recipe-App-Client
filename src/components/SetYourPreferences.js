@@ -1,19 +1,30 @@
 import React, { useState } from "react";
 import "../styles/SetYourPreferences.css";
 
+import Italian from "../assets/cuisines/italian.jpg";
+import Indian from "../assets/cuisines/indian.jpg";
+import Asian from "../assets/cuisines/asian.jpg";
+import Mediterranean from "../assets/cuisines/mediterranean.jpg";
+import MiddleEastern from "../assets/cuisines/middle-estern.jpg";
+import Mexican from "../assets/cuisines/mexican.jpg";
+import African from "../assets/cuisines/african.jpg";
+import French from "../assets/cuisines/french.jpg";
+import American from "../assets/cuisines/american.jpg";
+
+
 const SetYourPreferences = () => {
   const [selectedCuisines, setSelectedCuisines] = useState([]);
 
   const cuisines = [
-    { name: "Italian", image: "https://via.placeholder.com/120?text=Italian" },
-    { name: "Indian", image: "https://via.placeholder.com/120?text=Indian" },
-    { name: "Asian", image: "https://via.placeholder.com/120?text=Asian" },
-    { name: "Mediterranean", image: "https://via.placeholder.com/120?text=Mediterranean" },
-    { name: "Middle Eastern", image: "https://via.placeholder.com/120?text=Middle+Eastern" },
-    { name: "Mexican", image: "https://via.placeholder.com/120?text=Mexican" },
-    { name: "African", image: "https://via.placeholder.com/120?text=African" },
-    { name: "French", image: "https://via.placeholder.com/120?text=French" },
-    { name: "American", image: "https://via.placeholder.com/120?text=American" },
+    { name: "Italian", image: Italian},
+    { name: "Indian", image: Indian},
+    { name: "Asian", image: Asian },
+    { name: "Mediterranean", image: Mediterranean },
+    { name: "Middle Eastern", image: MiddleEastern },
+    { name: "Mexican", image: Mexican },
+    { name: "African", image: African },
+    { name: "French", image: French },
+    { name: "American", image: American },
   ];
 
   const toggleCuisine = (cuisine) => {

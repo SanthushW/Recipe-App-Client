@@ -1,9 +1,10 @@
 import React from "react";
 import "../styles/LiquidHarmony.css";
-import smokyCoconutJalapenoDrink from "../assets/food.jpg";
-import jalJeeraAmchurDrink from "../assets/food.jpg";
-import rumMixedDrinks from "../assets/food.jpg";
-import concordGrapeSmashDrink from "../assets/food.jpg";
+import smokyCoconutJalapenoDrink from "../assets/spicy-coconut-maragrita.jpg";
+import jalJeeraAmchurDrink from "../assets/Jal-Jeera.jpg";
+import rumMixedDrinks from "../assets/rum-drinks.jpg";
+import concordGrapeSmashDrink from "../assets/Concord-Grape-Smash-Drink.jpg";
+import mangoPinaple from "../assets/PROD_Mango_Mint_Cooler.jpg";
 
 const LiquidHarmony = () => {
   return (
@@ -72,6 +73,20 @@ const LiquidHarmony = () => {
             <p className="drink-author">By ERIK LOMBARDO</p>
             <p className="drink-time">Total time: 10 mins</p>
             <p className="drink-rating">⭐⭐⭐⭐⭐ (14)</p>
+          </div>
+        </div>
+        {/* Card 5 */}
+        <div className="drink-card">
+          <img
+            src={mangoPinaple}
+            alt="Mango Pineapple Cooler"
+            className="drink-image"
+          />
+          <div className="card-content">
+            <h3 className="drink-title">Mango Pineapple Cooler</h3>
+            <p className="drink-author">By SOPHIA RIVERA</p>
+            <p className="drink-time">Total time: 15 mins</p>
+            <p className="drink-rating">⭐⭐⭐⭐ (23)</p>
           </div>
         </div>
       </div>

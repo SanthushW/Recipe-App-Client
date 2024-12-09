@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/RecipeOfTheWeek.css";
+import butterChicken from "../assets/butter-chicken.jpg";
 
 const RecipeOfTheWeek = () => {
   return (
@@ -8,7 +9,7 @@ const RecipeOfTheWeek = () => {
       <div className="recipe-content">
         <div className="recipe-image-container">
           <img
-            src="butter-garlic-chicken.jpg"
+            src={butterChicken}
             alt="Butter Garlic Chicken"
             className="recipe-image"
           />

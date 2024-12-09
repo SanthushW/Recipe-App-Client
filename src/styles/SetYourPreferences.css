@@ -1,12 +1,12 @@
 /* Overall Container */
 .preferences-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background: #f5f5f5;
-    overflow: hidden;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  min-height: auto; /* Adjust from 100vh to auto */
+  background: #f5f5f5;
+  overflow: hidden;
+}
+ 
   /* Text Section (Top) */
   .text-section {
     padding: 2rem;

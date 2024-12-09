@@ -17,7 +17,7 @@
   .logo {
     font-size: 24px;
     font-weight: bold;
-    color: #2c3e50;
+    color: #2c5e3d;
     display: flex;
     align-items: center;
   }
@@ -25,6 +25,7 @@
   .logo-icon {
     font-size: 20px;
     margin-right: 8px;
+    color: #2c5e3d;
   }
   
   .nav a {
@@ -60,7 +61,7 @@
   .login {
     padding: 8px 16px;
     border-radius: 20px;
-    background: #2c3e50;
+    background: #2c5e3d;
     color: white;
     font-size: 14px;
     border: none;
