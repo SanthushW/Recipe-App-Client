@@ -1,0 +1,70 @@
+.healthy-eating {
+    padding: 2rem;
+    font-family: Arial, sans-serif;
+  }
+  
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .section-header h2 {
+    font-size: 2rem;
+    margin: 0;
+  }
+  
+  .view-all-link {
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .view-all-link:hover {
+    color: #0056b3;
+  }
+  
+  .content-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  
+  .image-container {
+    flex: 1;
+    max-width: 600px;
+  }
+  
+  .healthy-eating-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .article-list {
+    flex: 2;
+  }
+  
+  .article-item {
+    margin-bottom: 1rem;
+  }
+  
+  .article-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .article-description {
+    font-size: 1rem;
+    color: #555;
+    margin: 0;
+  }
+  
+  .divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 1rem 0;
+  }
