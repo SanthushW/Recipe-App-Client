@@ -7,6 +7,7 @@ import LiquidHarmony from "./components/LiquidHarmony";
 import RecipeOfTheWeek from "./components/RecipeOfTheWeek";
 import SetYourPreferences from "./components/SetYourPreferences";
 import Showcase from "./components/Showcase";
+import Footer from "./components/Footer";
 import './App.css';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
       <RecipeOfTheWeek />
       <SetYourPreferences />
       <Showcase />
+      <Footer />
     </div>
   );
 }
