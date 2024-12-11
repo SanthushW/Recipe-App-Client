@@ -1,0 +1,83 @@
+.recipe-of-the-week {
+    padding: 2rem;
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+  
+  .recipe-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+  
+  .recipe-image-container {
+    position: relative;
+    max-width: 400px;
+  }
+  
+  .recipe-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .play-icon {
+    color: #fff;
+    font-size: 1.8rem;
+  }
+  
+  .recipe-details {
+    max-width: 500px;
+    text-align: left;
+  }
+  
+  .recipe-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .recipe-author {
+    font-size: 1.1rem;
+    color: #555;
+    margin: 0 0 1rem 0;
+  }
+  
+  .author-name {
+    color: #d17a22;
+    font-weight: 700;
+  }
+  
+  .recipe-time {
+    font-size: 1.1rem;
+    margin: 0 0 1rem 0;
+  }
+  
+  .recipe-description {
+    font-size: 1.1rem;
+    color: #555;
+    margin: 0 0 1rem 0;
+  }
