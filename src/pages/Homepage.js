@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa"; 
 import "../styles/HomeSearchBar.css";
 import EffortlessEats from "../components/EffortlessEats";
@@ -9,6 +9,9 @@ import SetYourPreferences from "../components/SetYourPreferences";
 import Showcase from "../components/Showcase";
 
 function Homepage() {
+  const [query, setQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  
   return (
     <div>
       <div className="search-bar">
