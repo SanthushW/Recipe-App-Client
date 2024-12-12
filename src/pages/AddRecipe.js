@@ -13,7 +13,7 @@ const AddRecipeForm = () => {
         <hr />
         <form>
           <div className="mb-3">
-            <label className="form-label">Add a photo</label>
+            <label className="form-label">Add a Photo</label>
             <div className="photo-upload-box">
               <button type="button" className="btn btn-outline-success">
                 + Add a photo
