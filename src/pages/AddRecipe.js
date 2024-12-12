@@ -1,20 +1,83 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/AddRecipe.css";
 
 const AddRecipeForm = () => {
   const [selectedImages, setSelectedImages] = useState([]);
+  const [imageErrors, setImageErrors] = useState([]);
+  const formRef = useRef(null);
+
+  const validateImageFile = (file) => {
+    const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+    const maxFileSize = 5 * 1024 * 1024; // 5MB
+    const maxImageCount = 5;
+
+    // Check file type
+    if (!allowedTypes.includes(file.type)) {
+      return "Invalid file type. Only JPEG, PNG, and GIF are allowed.";
+    }
+
+    // Check file size
+    if (file.size > maxFileSize) {
+      return "File is too large. Maximum size is 5MB.";
+    }
+
+    return null;
+  };
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
-    const imagePreviews = files.map((file) => URL.createObjectURL(file));
-    setSelectedImages((prevImages) => [...prevImages, ...imagePreviews]);
+    const newImageErrors = [];
+    const validImages = [];
+
+    // Reset previous errors
+    setImageErrors([]);
+
+    // Validate each file
+    files.forEach((file) => {
+      const error = validateImageFile(file);
+      if (error) {
+        newImageErrors.push(error);
+      } else {
+        validImages.push(file);
+      }
+    });
+
+    // Check total image count
+    if (selectedImages.length + validImages.length > 5) {
+      newImageErrors.push("Maximum of 5 images allowed.");
+    } else {
+      // Create image previews for valid images
+      const imagePreviews = validImages.map((file) =>
+        URL.createObjectURL(file)
+      );
+      setSelectedImages((prevImages) => [...prevImages, ...imagePreviews]);
+    }
+
+    // Set errors if any
+    if (newImageErrors.length > 0) {
+      setImageErrors(newImageErrors);
+    }
   };
 
   const removeImage = (indexToRemove) => {
     setSelectedImages((prevImages) =>
       prevImages.filter((_, index) => index !== indexToRemove)
     );
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Check form validity
+    if (formRef.current.checkValidity() === false) {
+      e.stopPropagation();
+      formRef.current.classList.add("was-validated");
+      return;
+    }
+
+    // Additional custom validations can be added here
+    console.log("Form submitted successfully");
   };
 
   return (
@@ -25,8 +88,18 @@ const AddRecipeForm = () => {
           Feeling like a kitchen Picasso? We want to see your masterpiece! Add
           your recipe and show off your culinary creativity.
         </p>
-        <hr></hr>
-        <form>
+        <hr />
+
+        {/* Image Upload Errors */}
+        {imageErrors.length > 0 && (
+          <div className="alert alert-danger">
+            {imageErrors.map((error, index) => (
+              <div key={index}>{error}</div>
+            ))}
+          </div>
+        )}
+
+        <form ref={formRef} onSubmit={handleSubmit} noValidate>
           <div className="mb-3">
             <label className="form-label">Add a photo</label>
             <div
@@ -42,7 +115,7 @@ const AddRecipeForm = () => {
               <input
                 type="file"
                 multiple
-                accept="image/*"
+                accept="image/jpeg,image/png,image/gif"
                 onChange={handleImageChange}
                 style={{ display: "none" }}
                 id="imageUpload"
@@ -117,7 +190,12 @@ const AddRecipeForm = () => {
               id="recipeTitle"
               placeholder="Enter your recipe title"
               required
+              minLength="3"
+              maxLength="100"
             />
+            <div className="invalid-feedback">
+              Please enter a recipe title (3-100 characters).
+            </div>
           </div>
 
           <div className="mb-3">
@@ -130,11 +208,17 @@ const AddRecipeForm = () => {
               rows="4"
               placeholder="Describe your recipe in a way that makes mouths water."
               required
+              minLength="10"
+              maxLength="500"
             ></textarea>
+            <div className="invalid-feedback">
+              Please provide a description (10-500 characters).
+            </div>
           </div>
           <br />
-          <hr></hr>
+          <hr />
           <br />
+
           <div className="col mb-3">
             <div className="col-md-4 mb-4">
               <label htmlFor="servings" className="form-label">
@@ -146,8 +230,14 @@ const AddRecipeForm = () => {
                 id="servings"
                 placeholder="e.g., 4"
                 required
+                min="1"
+                max="20"
               />
+              <div className="invalid-feedback">
+                Please enter servings (1-20).
+              </div>
             </div>
+
             <div className="col-md-4 mb-4">
               <label htmlFor="prepTime" className="form-label">
                 Prep Time *
@@ -159,6 +249,8 @@ const AddRecipeForm = () => {
                   id="prepTimeHours"
                   placeholder="hrs"
                   required
+                  min="0"
+                  max="24"
                 />
                 <input
                   type="number"
@@ -166,9 +258,15 @@ const AddRecipeForm = () => {
                   id="prepTimeMinutes"
                   placeholder="mins"
                   required
+                  min="0"
+                  max="59"
                 />
+                <div className="invalid-feedback">
+                  Please enter valid prep time.
+                </div>
               </div>
             </div>
+
             <div className="col-md-4 mb-4">
               <label htmlFor="cookTime" className="form-label">
                 Cook Time *
@@ -180,6 +278,8 @@ const AddRecipeForm = () => {
                   id="cookTimeHours"
                   placeholder="hrs"
                   required
+                  min="0"
+                  max="24"
                 />
                 <input
                   type="number"
@@ -187,13 +287,18 @@ const AddRecipeForm = () => {
                   id="cookTimeMinutes"
                   placeholder="mins"
                   required
+                  min="0"
+                  max="59"
                 />
+                <div className="invalid-feedback">
+                  Please enter valid cook time.
+                </div>
               </div>
             </div>
           </div>
 
           <br />
-          <hr></hr>
+          <hr />
           <br />
 
           <div className="mb-3">
@@ -206,6 +311,8 @@ const AddRecipeForm = () => {
                     className="form-control me-2"
                     placeholder="Qty"
                     required
+                    min="0.1"
+                    step="0.1"
                   />
                   <select className="form-select me-2" required>
                     <option value="">Measurement</option>
@@ -218,6 +325,8 @@ const AddRecipeForm = () => {
                     className="form-control me-2"
                     placeholder="Item"
                     required
+                    minLength="2"
+                    maxLength="50"
                   />
                   <button
                     type="button"
@@ -229,9 +338,8 @@ const AddRecipeForm = () => {
                       height: "25px",
                       borderRadius: "50%",
                       color: "black",
-                      border: "none",
-                      cursor: "pointer",
                       border: "1px solid rgb(0, 0, 0)",
+                      cursor: "pointer",
                     }}
                   >
                     &times;
@@ -252,9 +360,11 @@ const AddRecipeForm = () => {
               + Add ingredient
             </div>
           </div>
+
           <br />
-          <hr></hr>
+          <hr />
           <br />
+
           <div className="mb-3">
             <label className="form-label">Instructions *</label>
             <div className="instruction-list">
@@ -265,7 +375,12 @@ const AddRecipeForm = () => {
                     className="form-control"
                     rows="2"
                     required
+                    minLength="10"
+                    maxLength="500"
                   ></textarea>
+                  <div className="invalid-feedback">
+                    Please describe the step (10-500 characters).
+                  </div>
                 </div>
               ))}
             </div>
@@ -284,7 +399,7 @@ const AddRecipeForm = () => {
           </div>
 
           <br />
-          <hr></hr>
+          <hr />
           <br />
 
           <div className="mb-3">
@@ -296,11 +411,12 @@ const AddRecipeForm = () => {
               id="cooksTips"
               rows="5"
               placeholder="Share your kitchen secrets! Oven hacks, swaps, or any tips for ultimate recipe success."
+              maxLength="500"
             ></textarea>
           </div>
 
           <br />
-          <hr></hr>
+          <hr />
           <br />
 
           <div className="col mb-3">
@@ -353,7 +469,7 @@ const AddRecipeForm = () => {
               Cancel
             </button>
             <button
-              type="submitt"
+              type="submit"
               className="btn btn-outline-success"
               style={{
                 backgroundColor: "#2E5834",
