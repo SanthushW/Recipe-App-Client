@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/AddRecipe.css";
 
 const AddRecipeForm = () => {
+  const [selectedImages, setSelectedImages] = useState([]);
+
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    const imagePreviews = files.map((file) => URL.createObjectURL(file));
+    setSelectedImages((prevImages) => [...prevImages, ...imagePreviews]);
+  };
+
+  const removeImage = (indexToRemove) => {
+    setSelectedImages((prevImages) =>
+      prevImages.filter((_, index) => index !== indexToRemove)
+    );
+  };
+
   return (
     <div className="container my-5">
       <div className="card shadow p-4">
@@ -25,13 +39,22 @@ const AddRecipeForm = () => {
                 borderRadius: "8px",
               }}
             >
-              <button
-                type="button"
+              <input
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={handleImageChange}
+                style={{ display: "none" }}
+                id="imageUpload"
+              />
+              <label
+                htmlFor="imageUpload"
                 className="btn btn-outline-success"
                 style={{
                   backgroundColor: "#2E5834",
                   color: "#fff",
                   border: "1px solid #2E5834",
+                  cursor: "pointer",
                 }}
                 onMouseEnter={(e) => {
                   e.target.style.backgroundColor = "darkgreen";
@@ -43,7 +66,44 @@ const AddRecipeForm = () => {
                 }}
               >
                 + Add a photo
-              </button>
+              </label>
+            </div>
+
+            <div className="mt-3">
+              {selectedImages.length > 0 && (
+                <div className="d-flex flex-wrap">
+                  {selectedImages.map((image, index) => (
+                    <div
+                      key={index}
+                      className="position-relative m-2"
+                      style={{ width: "100px", height: "100px" }}
+                    >
+                      <img
+                        src={image}
+                        alt={`Preview ${index + 1}`}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          borderRadius: "8px",
+                        }}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeImage(index)}
+                        className="btn-close position-absolute"
+                        style={{
+                          top: "5px",
+                          right: "5px",
+                          backgroundColor: "#fff",
+                          borderRadius: "50%",
+                        }}
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
