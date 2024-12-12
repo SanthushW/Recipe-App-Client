@@ -4,6 +4,8 @@ import Homepage from "./pages/Homepage";
 import Footer from "./components/Footer";
 import "./App.css";
 import AddRecipeForm from "./pages/AddRecipe";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 function App() {
   return (
