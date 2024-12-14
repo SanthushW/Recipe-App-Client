@@ -1,0 +1,96 @@
+.custom-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2e5834;
+  color: white;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+  background-color: #3a7044;
+}
+
+.custom-button .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 2px solid white;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.custom-button .icon::before {
+  content: "+";
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.custom-button .text {
+  margin-left: 5px;
+}
+
+.photo-upload-box {
+  background-color: #f8f9fa;
+  border-style: dashed;
+  border-width: 2px;
+  color: #6c757d;
+  cursor: pointer;
+}
+
+.photo-upload-box:hover {
+  background-color: #e9ecef;
+}
+
+.border-dashed {
+  border-style: dashed;
+}
+
+.ingredient-list .form-control,
+.instruction-list .form-control {
+  flex-grow: 1;
+}
+
+.card {
+  border: none;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+button.btn-outline-primary,
+button.btn-outline-success {
+  border-radius: 20px;
+}
+
+button.btn-outline-primary:hover,
+button.btn-outline-success:hover {
+  background-color: #0056b3;
+  color: #ffffff;
+}
+
+textarea:focus,
+input:focus,
+select:focus {
+  outline: none !important;
+  border-color: #80bdff;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.25);
+}
+
+.mb-3 label {
+  font-weight: 600;
+}
+
+h2 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+}
