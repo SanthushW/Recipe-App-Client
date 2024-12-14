@@ -1,8 +1,63 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/AddRecipe.css";
+import { Toast } from "bootstrap";
+import { useState, useEffect, useRef } from "react";
 
 const AddRecipeForm = () => {
+  const [errors, setErrors] = useState([]);
+  const toastRefs = useRef([]); // Correctly use useRef
+
+  useEffect(() => {
+    if (errors.length > 0) {
+      // Show toasts for each error
+      errors.forEach((error, index) => {
+        const toastElement = toastRefs.current[index];
+        if (toastElement) {
+          const toast = new Toast(toastElement);
+          toast.show();
+        }
+      });
+    }
+  }, [errors]); // Runs whenever errors are updated
+
+  const validateForm = (event) => {
+    event.preventDefault(); // Prevent default form submission
+    const newErrors = [];
+  
+    // Validate Recipe Title
+    const recipeTitle = document.getElementById("recipeTitle").value.trim();
+    if (!recipeTitle) newErrors.push("Recipe title is required.");
+  
+    // Validate Description
+    const description = document.getElementById("description").value.trim();
+    if (!description) newErrors.push("Description is required.");
+  
+    // Validate Servings
+    const servings = document.getElementById("servings").value.trim();
+    if (!servings || Number(servings) <= 0)
+      newErrors.push("Servings must be a positive number.");
+  
+    // Validate Prep Time
+    const prepTimeHours = document.getElementById("prepTimeHours").value.trim();
+    const prepTimeMinutes = document.getElementById("prepTimeMinutes").value.trim();
+    if (!prepTimeHours && !prepTimeMinutes)
+      newErrors.push("Preparation time is required.");
+  
+    // Validate Cook Time
+    const cookTimeHours = document.getElementById("cookTimeHours").value.trim();
+    const cookTimeMinutes = document.getElementById("cookTimeMinutes").value.trim();
+    if (!cookTimeHours && !cookTimeMinutes)
+      newErrors.push("Cooking time is required.");
+  
+    // Update error state
+    setErrors(newErrors);
+  
+    if (newErrors.length === 0) {
+      alert("Form submitted successfully!");
+    }
+  };
+
   return (
     <div className="container my-5">
       <div className="card shadow p-4">
@@ -293,8 +348,10 @@ const AddRecipeForm = () => {
               Cancel
             </button>
             <button
-              type="submitt"
+              type="submit"
+              onClick={validateForm}
               className="btn btn-outline-success"
+              id="btn-submit"
               style={{
                 backgroundColor: "#2E5834",
                 color: "#fff",
@@ -313,6 +370,29 @@ const AddRecipeForm = () => {
             </button>
           </div>
         </form>
+      </div>
+
+      {/* Toast Notifications for Errors */}
+      <div className="toast-container position-fixed top-0 end-0 p-3">
+        {errors.map((error, index) => (
+          <div
+            key={index}
+            className="toast align-items-center text-bg-danger border-0 mb-2"
+            ref={(el) => (toastRefs.current[index] = el)}
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+          >
+            <div className="d-flex">
+              <div className="toast-body">{error}</div>
+              <button
+                type="button"
+                className="btn-close btn-close-white me-2 m-auto"
+                aria-label="Close"
+              ></button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
