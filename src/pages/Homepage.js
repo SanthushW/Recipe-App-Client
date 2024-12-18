@@ -8,7 +8,14 @@ import Showcase from "../components/Showcase";
 import { FaSearch } from "react-icons/fa";
 import "../styles/HomeSearchBar.css";
 
+
+
 function Homepage() {
+  // Add these lines at the top of your component
+const [showFilters, setShowFilters] = useState(false);
+const [selectedCuisine, setSelectedCuisine] = useState('');
+const [items, setItems] = useState([]);
+const [filteredItems, setFilteredItems] = useState([]);
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
@@ -50,10 +57,38 @@ function Homepage() {
     setSuggestions([]); 
   };
 
-  const handleSearchClick = () => {
-    // add search logic here 
-    console.log("Searching for:", query);
+  const handleFilterClick = () => {
+    setShowFilters(!showFilters);
   };
+
+  const handleCuisineChange = (event) => {
+    setSelectedCuisine(event.target.value);
+    filterItems(event.target.value, query);
+  };
+
+  const handleSearchClick = () => {
+    filterItems(selectedCuisine, query);
+  };
+
+  const filterItems = (cuisine, searchQuery) => {
+    let filtered = items;
+
+    if (cuisine) {
+      filtered = filtered.filter(item => item.cuisine.toLowerCase() === cuisine.toLowerCase());
+    }
+
+    if (searchQuery) {
+      filtered = filtered.filter(item =>
+        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.cuisine.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    setFilteredItems(filtered);
+  };
+
+
 
   return (
     <div>
@@ -66,33 +101,36 @@ function Homepage() {
               <br />
               <span>Find recipes that taste amazing!</span>
             </h1>
-            <div className="search-input-container">
-              <FaSearch
-                className="search-icon"
-                onClick={handleSearchClick} 
-              />
-              <input
-                type="text"
-                className="search-input"
-                placeholder="Search by dish, ingredient, or cuisine..."
-                value={query}
-                onChange={handleInputChange}
-              />
-            </div>
+          
+            <div>
+      
+      {showFilters && (
+        <div className="filter-options">
+          <label htmlFor="cuisine">Cuisine Type:</label>
+          <select id="cuisine" value={selectedCuisine} onChange={handleCuisineChange}>
+            <option value="">Select Cuisine</option>
+            <option value="chinese">Chinese</option>
+            <option value="indian">Indian</option>
+            <option value="italian">Italian</option>
+            <option value="mexican">Mexican</option>
+            {/* Add more options as needed */}
+          </select>
+          {/* Add more filter categories as needed */}
+        </div>
+      )}
+      {/* Render your filtered content here */}
+    </div>
           </div>
         </div>
 
         {suggestions.length > 0 && (
           <div className="suggestions-list">
-            {suggestions.map((item, index) => (
-              <div
-                key={index}
-                className="suggestion-item"
-                onClick={() => handleSuggestionClick(item)} 
-              >
-                {item.title}
-              </div>
-            ))}
+            {filteredItems.map(item => (
+          <div key={item.id}>
+            <h3>{item.title}</h3>
+            <p>{item.category} - {item.cuisine}</p>
+          </div>
+        ))}
           </div>
         )}
 

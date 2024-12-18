@@ -12,6 +12,7 @@ function App() {
     <div className="App">
       <Header />
       <AddRecipeForm />
+      
       <Footer />
     </div>
   );
