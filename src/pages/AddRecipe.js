@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/AddRecipe.css";
 import { Toast } from "bootstrap";
-import { useState, useEffect, useRef } from "react";
 
 const AddRecipeForm = () => {
   const [errors, setErrors] = useState([]);
-  const toastRefs = useRef([]); // Correctly use useRef
+  const [imageFile, setImageFile] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const toastRefs = useRef([]);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (errors.length > 0) {
-      // Show toasts for each error
       errors.forEach((error, index) => {
         const toastElement = toastRefs.current[index];
         if (toastElement) {
@@ -19,10 +20,31 @@ const AddRecipeForm = () => {
         }
       });
     }
-  }, [errors]); // Runs whenever errors are updated
+  }, [errors]);
 
-  const validateForm = (event) => {
-    event.preventDefault(); // Prevent default form submission
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      // Validate file type and size
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+      const maxSize = 5 * 1024 * 1024; // 5MB
+
+      if (!allowedTypes.includes(file.type)) {
+        setErrors(prev => [...prev, "Invalid file type. Please upload JPEG, PNG, or GIF."]);
+        return;
+      }
+
+      if (file.size > maxSize) {
+        setErrors(prev => [...prev, "File is too large. Maximum size is 5MB."]);
+        return;
+      }
+
+      setImageFile(file);
+    }
+  };
+
+  const validateForm = async (event) => {
+    event.preventDefault();
     const newErrors = [];
   
     // Validate Recipe Title
@@ -49,12 +71,96 @@ const AddRecipeForm = () => {
     const cookTimeMinutes = document.getElementById("cookTimeMinutes").value.trim();
     if (!cookTimeHours && !cookTimeMinutes)
       newErrors.push("Cooking time is required.");
+
+    // Validate Ingredients
+    const ingredientRows = document.querySelectorAll('.ingredient-list > div');
+    const ingredients = [];
+    ingredientRows.forEach(row => {
+      const quantity = row.querySelector('input[placeholder="Qty"]').value.trim();
+      const measurement = row.querySelector('select').value;
+      const item = row.querySelector('input[placeholder="Item"]').value.trim();
+
+      if (!quantity || !measurement || !item) {
+        newErrors.push("All ingredient fields must be filled.");
+      } else {
+        ingredients.push({ quantity, measurement, item });
+      }
+    });
+
+    // Validate Instructions
+    const instructionRows = document.querySelectorAll('.instruction-list > div');
+    const instructions = [];
+    instructionRows.forEach((row, index) => {
+      const step = row.querySelector('textarea').value.trim();
+      if (!step) {
+        newErrors.push(`Step ${index + 1} is required.`);
+      } else {
+        instructions.push(step);
+      }
+    });
   
     // Update error state
     setErrors(newErrors);
   
     if (newErrors.length === 0) {
-      alert("Form submitted successfully!");
+      try {
+        setIsSubmitting(true);
+        
+        // Prepare form data
+        const formData = new FormData();
+        
+        // Add image if exists
+        if (imageFile) {
+          formData.append('image', imageFile);
+        }
+
+        // Add other recipe details
+        formData.append('title', recipeTitle);
+        formData.append('description', description);
+        formData.append('servings', servings);
+        formData.append('prepTimeHours', prepTimeHours || 0);
+        formData.append('prepTimeMinutes', prepTimeMinutes || 0);
+        formData.append('cookTimeHours', cookTimeHours || 0);
+        formData.append('cookTimeMinutes', cookTimeMinutes || 0);
+        formData.append('ingredients', JSON.stringify(ingredients));
+        formData.append('instructions', JSON.stringify(instructions));
+        formData.append('cooksTips', document.getElementById("cooksTips").value.trim());
+        formData.append('cuisine', document.querySelector('select[aria-label="Cuisine"]').value);
+        formData.append('mealType', document.querySelector('select[aria-label="Meal Type"]').value);
+        formData.append('dietaryRestrictions', document.querySelector('select[aria-label="Dietary Restrictions"]').value);
+
+        // API Call
+        const response = await fetch('YOUR_API_ENDPOINT', {
+          method: 'POST',
+          body: formData,
+          // Include headers if needed, e.g., for authorization
+          // headers: {
+          //   'Authorization': `Bearer ${yourAuthToken}`
+          // }
+        });
+
+        if (!response.ok) {
+          throw new Error('Recipe submission failed');
+        }
+
+        const result = await response.json();
+        
+        // Reset form
+        event.target.reset();
+        setImageFile(null);
+        if (fileInputRef.current) {
+          fileInputRef.current.value = "";
+        }
+        
+        // Show success toast
+        const successToast = new Toast(document.getElementById('successToast'));
+        successToast.show();
+      } catch (error) {
+        console.error("Error submitting recipe:", error);
+        setErrors(prev => [...prev, "Failed to submit recipe. Please try again."]);
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
