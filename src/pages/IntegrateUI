@@ -1,0 +1,117 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "../styles/HomeSearchBar.css";
+
+function Homepage() {
+  const [showFilters, setShowFilters] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [query, setQuery] = useState("");
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // Toggle filter visibility
+  const handleFilterClick = () => {
+    setShowFilters(!showFilters);
+  };
+
+  // Fetch recipes from the API
+  const fetchRecipes = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get("http://localhost:5000/api/recipes", {
+        params: {
+          keyword: query,
+          category: selectedCategory,
+          limit: 10,
+        },
+      });
+      setRecipes(response.data);
+    } catch (error) {
+      console.error("Error fetching recipes:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Handle category filter change
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value);
+  };
+
+  // Trigger search
+  const handleSearch = () => {
+    fetchRecipes();
+  };
+
+  useEffect(() => {
+    // Fetch initial recipes on component mount
+    fetchRecipes();
+  }, []);
+
+  return (
+    <div>
+      <div className="homepage-container">
+        <div className="search-bar">
+          <div className="overlay"></div>
+          <div className="search-bar-content">
+            <h1 className="tagline">
+              Fuel your body & soul
+              <br />
+              <span>Find recipes that taste amazing!</span>
+            </h1>
+            <div>
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search recipes..."
+                className="search-input"
+              />
+              <button onClick={handleSearch} className="search-button">
+                Search
+              </button>
+              <button onClick={handleFilterClick} className="filter-button">
+                Filters
+              </button>
+            </div>
+
+            {showFilters && (
+              <div className="filter-options">
+                <label htmlFor="category">Category:</label>
+                <select
+                  id="category"
+                  value={selectedCategory}
+                  onChange={handleCategoryChange}
+                >
+                  <option value="">All</option>
+                  <option value="Pasta">Pasta</option>
+                  <option value="Dessert">Dessert</option>
+                  <option value="Vegetarian">Vegetarian</option>
+                  <option value="Fast Food">Fast Food</option>
+                </select>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="results">
+          {loading ? (
+            <p>Loading...</p>
+          ) : recipes.length > 0 ? (
+            recipes.map((recipe) => (
+              <div key={recipe.rec_id} className="recipe-card">
+                <h3>{recipe.title}</h3>
+                <p>Category: {recipe.category}</p>
+                <p>Description: {recipe.description}</p>
+              </div>
+            ))
+          ) : (
+            <p>No recipes found.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Homepage;
