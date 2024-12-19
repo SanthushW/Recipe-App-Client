@@ -24,7 +24,7 @@ import img12 from "../assets/images/img12.png";
 import img13 from "../assets/images/img13.png";
 import img14 from "../assets/images/img14.png";
 import img15 from "../assets/images/img15.png";
-//recipies
+//recipie details 
 const recipes = [
   {
     title: "Chicken Makhani (Indian Butter Chicken)",
