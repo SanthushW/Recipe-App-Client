@@ -58,7 +58,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>© 2023 Brand. All rights reserved.</p>
+        <p>© 2024  Brand. All rights reserved.</p>
         <div className="social-icons">
           <i className="fab fa-facebook"></i>
           <i className="fab fa-instagram"></i>

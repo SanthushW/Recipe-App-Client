@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+//import React from "react";
 import Header from "./components/Header";
 import Breadcrumb from "./components/Breadcrumb";
 import SearchBar from "./components/SearchBar";
@@ -148,15 +149,21 @@ const recipes = [
 ];
 
 const App = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredRecipes = recipes.filter((recipe) =>
+    recipe.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="app">
       <Header />
       <Breadcrumb />
-      <SearchBar />
+      <SearchBar onSearch={(query) => setSearchQuery(query)} />
       <div className="content">
         <Filters />
         <div className="recipes-grid">
-          {recipes.map((recipe, index) => (
+          {filteredRecipes.map((recipe, index) => (
             <RecipeCard key={index} recipe={recipe} />
           ))}
         </div>
